@@ -1,0 +1,82 @@
+//Jump Button on Phone
+
+
+using UnityEngine;
+
+using UnityEngine.EventSystems;
+
+public class Joybutton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler {
+
+
+
+
+    [HideInInspector]
+    public bool Pressed;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Pressed = true;
+        }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        Pressed = false;    }
+
+
+
+}
+
+//Control Player Joystick
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class JoystickBall : MonoBehaviour
+{
+
+
+    protected Joystick joystick;
+    protected Joybutton joybutton;
+
+    protected bool jump;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        joystick = FindObjectOfType<Joystick>();
+        joybutton = FindObjectOfType<Joybutton>();
+    }
+
+    // Update is called once per frame
+    void Update() {
+
+        var rigidbody = GetComponent<Rigidbody>();
+
+        rigidbody.velocity = new Vector3(joystick.Horizontal * 8f, rigidbody.velocity.y, joystick.Vertical * 0f);
+
+        if (!jump && joybutton.Pressed)
+        {jump = true;
+            rigidbody.velocity += Vector3.up * 13f;
+
+        }
+
+        if(jump && !joybutton.Pressed) 
+        { jump = false; }
+    }
+
+}

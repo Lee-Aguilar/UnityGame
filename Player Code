@@ -1,0 +1,70 @@
+Player Collision:
+
+using System.Drawing;
+using UnityEngine;
+
+public class PlayerCollision : MonoBehaviour{
+
+    public PlayerMovement movement;
+
+    void OnCollisionEnter (Collision collisionInfo)
+    {
+       if (collisionInfo.collider.tag == "Obstacle")
+        {
+
+            movement.enabled = false;
+            FindObjectOfType<GameManager>().EndGame();
+
+       }
+    }
+}
+
+Player Movement:
+
+using UnityEngine;
+
+    public class PlayerMovement : MonoBehaviour {
+    public float Jump;
+    public Rigidbody rb;
+    private CharacterController controller;
+    public float forwardForce = 2000f;
+    public float sidewaysForce = 500f;
+    private float verticalVelocity;
+    public int points = 0;
+
+
+    // Update is called once per frame
+    void FixedUpdate ()
+    {
+        //if (Input.GetKey("w"))
+        {
+            rb.AddForce(0, 0, forwardForce * Time.deltaTime);
+        }
+        if (Input.GetKey ("d"))
+        {
+            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+        }
+
+        if (Input.GetKey("a"))
+        {
+            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+        }
+
+
+        if (rb.position.y < -1f)
+        {
+            FindObjectOfType<GameManager>().EndGame();
+        }
+
+        rb.useGravity = true;
+
+
+
+    }
+
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(40, 40, 120, 60), "Score : " + points);
+    }
+
+}
