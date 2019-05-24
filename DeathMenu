@@ -1,0 +1,28 @@
+//Code for GameOver menu when you collide with an Object
+
+using UnityEngine;
+
+public class DeathMenu : MonoBehaviour
+{
+
+    private float score = 0.0f;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        gameObject.SetActive(false); //Turns off GameOver
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void ToggleEndMenu(float score)
+    {
+        gameObject.SetActive(true); //Turns on Gameover
+    }
+
+}

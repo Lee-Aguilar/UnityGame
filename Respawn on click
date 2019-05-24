@@ -1,7 +1,7 @@
 // Respawn using right mouse clicker
 
-using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ReloadOnClick : MonoBehaviour
 {
@@ -17,7 +17,9 @@ public class ReloadOnClick : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse1)) // left click
         {
-            Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene("Endless_Spinning");
         }
     }
+
+
 }
