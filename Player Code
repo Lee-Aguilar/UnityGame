@@ -1,70 +1,24 @@
-Player Collision:
+//PlayerMotion
+public PlayerMovement movement;
+public Jump jump;
+public BetterJump bj;
 
-using System.Drawing;
-using UnityEngine;
+//DeathMenu
+private object deathMenuAnim;
+public DeathMenu deathMenu;
+private float score = 0.0f;
 
-public class PlayerCollision : MonoBehaviour{
 
-    public PlayerMovement movement;
+public void OnCollisionEnter (Collision collisionInfo)
 
-    void OnCollisionEnter (Collision collisionInfo)
+{
+    if (collisionInfo.collider.tag == "Obstacle")
     {
-       if (collisionInfo.collider.tag == "Obstacle")
-        {
-
-            movement.enabled = false;
-            FindObjectOfType<GameManager>().EndGame();
-
-       }
+        movement.enabled = false;
+        jump.enabled = false;             `   // When colliding with Obstacle, Player can not move, jump, or better jump. `
+        bj.enabled = false;                   // DeathMenu is also enabled when collision happens.
+        deathMenu.ToggleEndMenu(score);
+      }
     }
-}
-
-Player Movement:
-
-using UnityEngine;
-
-    public class PlayerMovement : MonoBehaviour {
-    public float Jump;
-    public Rigidbody rb;
-    private CharacterController controller;
-    public float forwardForce = 2000f;
-    public float sidewaysForce = 500f;
-    private float verticalVelocity;
-    public int points = 0;
-
-
-    // Update is called once per frame
-    void FixedUpdate ()
-    {
-        //if (Input.GetKey("w"))
-        {
-            rb.AddForce(0, 0, forwardForce * Time.deltaTime);
-        }
-        if (Input.GetKey ("d"))
-        {
-            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-        }
-
-        if (Input.GetKey("a"))
-        {
-            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-        }
-
-
-        if (rb.position.y < -1f)
-        {
-            FindObjectOfType<GameManager>().EndGame();
-        }
-
-        rb.useGravity = true;
-
-
-
-    }
-
-    private void OnGUI()
-    {
-        GUI.Label(new Rect(40, 40, 120, 60), "Score : " + points);
-    }
-
+  }
 }

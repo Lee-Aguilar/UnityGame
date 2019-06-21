@@ -26,10 +26,11 @@ using UnityEngine;
         }
 
 
-        if (rb.position.y < -1f)
+      */  if (rb.position.y < -1f)
         {
-            FindObjectOfType<GameManager>().EndGame();
+            FindObjectOfType<GameManager>().EndGame();    //Used when player fell off of floor. There are walls now.
         }
+        /*
 
         rb.useGravity = true;
 

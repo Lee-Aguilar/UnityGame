@@ -1,0 +1,16 @@
+Coin Collector:
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CoinCollector : MonoBehaviour
+{
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Coin")
+        {
+            Destroy(collision.gameObject);    //Destroy's coin if object with tag "Coin" collides 
+        }
+    }
+}

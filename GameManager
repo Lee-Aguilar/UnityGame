@@ -4,29 +4,49 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
+
 {
+public int nextSceneToLoad;
 
     bool gameHasEnded = false;
 
     public void EndGame()
     {
-        if (gameHasEnded == false)
+        if (gameHasEnded == false)      // Debug statement
         {
             gameHasEnded = true;
             Debug.Log("GAME OVER");
         }
     }
 
-    void Restart()
+
+    // Loads next level in the Queue
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    //This is for an auto restart with right click
+    */
+    public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    /*
 
-
+    //Restarts game when buttons is pressed in DeathMenu.
     public void OnPlayButton()
     {
-        SceneManager.LoadScene("Endless_Spinning");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
+    }
+
+    // Trigger for completed level animation. 
+    public GameObject completelevelUI;
+
+    public void LevelComplete ()
+    {
+        completelevelUI.SetActive(true);
     }
 
 }
